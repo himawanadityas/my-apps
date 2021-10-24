@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, unnecessary_new, must_be_immutable
 
 import 'dart:async';
+// import 'dart:html';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -92,8 +93,6 @@ class SecondScreen extends StatelessWidget {
     }
   ];
 
-
-  List cards = new List.generate(10, (i) => new CustomCard()).toList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,10 +106,10 @@ class SecondScreen extends StatelessWidget {
                   const SnackBar(content: Text('Thankyou for clicking the alert...')));
             },
             icon: const Icon(Icons.add_alert)),
-          // IconButton(onPressed: onPressed, icon: icon)
-        
         ],
       ),
+
+
       body: Container(
         child: Column(
           children: <Widget>[
@@ -136,28 +135,56 @@ class SecondScreen extends StatelessWidget {
            ],
           ),
       ),
+
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: null,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => FormPage()));
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.book_rounded),
+            icon: Icon(Icons.list),
             label: 'Booking'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shop),
+            icon: Icon(Icons.shop, color: Colors.blue),
             label: 'Shop')
         ],
       ), 
     );
   }
+}
 
-  // @override
-  // State<StatefulWidget> createState() {
-   
-  //   throw UnimplementedError();
-  // }
+class FormPage extends StatelessWidget{
+  const FormPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("Form"),
+          actions: <Widget>[
+            // IconButton(
+            //   onPressed: null, 
+            //   icon: Icon(Icons.cancel_outlined, color: Colors.white, size:30)
+            // ),
+            IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              }, 
+              icon: Icon(Icons.check, color: Colors.white, size: 30)
+            ),
+            
+          ],
+        ),
+
+        body: null,
+
+        // floatingActionButton: FloatingActionButton(child: ,),
+      );
+  }
 }
 
 class CustomCard extends StatelessWidget{
