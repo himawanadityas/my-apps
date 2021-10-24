@@ -49,6 +49,50 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 @immutable
 class SecondScreen extends StatelessWidget {
+  var dataMusic = [
+    {
+      'title':"Still Loving You",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    },
+    {
+      'title':"Wind Of Change",
+      'album':"scorpion"
+    }
+  ];
+
+
   List cards = new List.generate(10, (i) => new CustomCard()).toList();
   @override
   Widget build(BuildContext context) {
@@ -67,8 +111,34 @@ class SecondScreen extends StatelessWidget {
         
         ],
       ),
-      body: new ListView(
-        children: cards,
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                itemCount: dataMusic.length,
+                itemBuilder: (context, index){
+                    return new Card(
+                      color: Colors.blue,
+                      child: new Column(
+                        children: <Widget>[
+                          new ListTile(
+                            leading: Icon(Icons.album, size: 50),
+                            title: Text(dataMusic[index]['title'].toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                            subtitle: Text(dataMusic[index]['album'].toString()),
+                          )
+                       ],
+                      ),
+                    );
+                }
+                ),
+            )
+           ],
+          ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: null,
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
