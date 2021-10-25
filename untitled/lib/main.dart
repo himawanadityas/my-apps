@@ -3,6 +3,7 @@
 import 'dart:async';
 // import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -102,10 +103,10 @@ class SecondScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Thankyou for clicking the alert...')));
+              SystemNavigator.pop();
             },
-            icon: const Icon(Icons.add_alert)),
+            icon: const Icon(Icons.exit_to_app),
+            )
         ],
       ),
 
