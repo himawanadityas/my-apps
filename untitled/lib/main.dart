@@ -2,10 +2,13 @@
 
 import 'dart:async';
 // import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 
@@ -34,7 +37,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  final Future<FirebaseApp> _initialization =  Firebase.initializeApp();
   @override
   void initState(){
     super.initState();
@@ -79,18 +82,6 @@ class SecondScreen extends StatelessWidget {
     {
       'title':"Wind Of Change",
       'album':"scorpion"
-    },
-    {
-      'title':"Wind Of Change",
-      'album':"scorpion"
-    },
-    {
-      'title':"Wind Of Change",
-      'album':"scorpion"
-    },
-    {
-      'title':"Wind Of Change",
-      'album':"scorpion"
     }
   ];
 
@@ -98,7 +89,8 @@ class SecondScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.home), onPressed: null),
+        leading: IconButton(icon: const Icon(Icons.home), 
+        onPressed:  null),
         title: Text('My Flutter Apps'),
         actions: <Widget>[
           IconButton(
@@ -129,7 +121,7 @@ class SecondScreen extends StatelessWidget {
                           )
                        ],
                       ),
-                    );
+                    ); 
                 }
                 ),
             )
@@ -148,10 +140,12 @@ class SecondScreen extends StatelessWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Booking'),
+            label: 'Booking',),
+            
           BottomNavigationBarItem(
             icon: Icon(Icons.shop, color: Colors.blue),
-            label: 'Shop')
+            label: 'Shop',
+           )
         ],
       ), 
     );
@@ -159,10 +153,29 @@ class SecondScreen extends StatelessWidget {
 }
 
 class FormPage extends StatelessWidget{
-  const FormPage({Key? key}) : super(key: key);
+  // const FormPage({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+  final textController = TextEditingController();
+  CollectionReference colref = FirebaseFirestore.instance.collection('data');
+  @override
+  void dispose(){
+    textController.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context){
+      Future<void> addData(){
+        return colref.add(
+          {
+            'title':'Still Loving You',
+            'musician':'Scorpion'
+          }
+        ).then((value) => print('Successful to  sotring data to firestore...'))
+        .catchError((error)=> print('error to storing to firestore...'));
+      }
+
       return Scaffold(
         appBar: AppBar(
           title: Text("Form"),
@@ -181,7 +194,28 @@ class FormPage extends StatelessWidget{
           ],
         ),
 
-        body: null,
+        body: Form(
+          key: _formKey,
+          child: Container(
+            padding: const EdgeInsets.all(19.0),
+            child: Column(
+              children: [
+                Padding(padding: const EdgeInsets.all(8.0)),
+                TextFormField(
+                  controller: textController,
+                  decoration: new InputDecoration(
+                    labelText: 'Your Name',
+                    // icon: Icon(Icons.people),
+                  ),
+                )
+              ],
+            ),
+          )
+        ),
+        floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.text_fields),
+        onPressed: addData,
+      ),
 
         // floatingActionButton: FloatingActionButton(child: ,),
       );
