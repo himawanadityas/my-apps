@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled/database.dart';
 
 void main() {
 
@@ -166,15 +167,15 @@ class FormPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-      Future<void> addData(){
-        return colref.add(
-          {
-            'title':'Still Loving You',
-            'musician':'Scorpion'
-          }
-        ).then((value) => print('Successful to  sotring data to firestore...'))
-        .catchError((error)=> print('error to storing to firestore...'));
-      }
+      // Future<void> addData(){
+      //   return colref.add(
+      //     {
+      //       'title':'Still Loving You',
+      //       'musician':'Scorpion'
+      //     }
+      //   ).then((value) => print('Successful to  sotring data to firestore...'))
+      //   .catchError((error)=> print('error to storing to firestore...'));
+      // }
 
       return Scaffold(
         appBar: AppBar(
@@ -214,7 +215,7 @@ class FormPage extends StatelessWidget{
         ),
         floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.text_fields),
-        onPressed: addData,
+        onPressed: null,
       ),
 
         // floatingActionButton: FloatingActionButton(child: ,),
